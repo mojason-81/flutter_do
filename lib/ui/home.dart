@@ -20,6 +20,9 @@ class _HomeState extends State<Home> {
     checkSignInState();
     if (_signedIn) {
       debugPrint("Signed in");
+      // TODO: Should actually use Navigator to route to StartScreen
+      // TODO: That way when logging out, we can rely on Navigator to get
+      // TODO: us back to the home screen.
       return StartScreen();
     } else {
       debugPrint("Not signed in");
