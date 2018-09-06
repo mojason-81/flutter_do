@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_do/ui/sign_in_screen.dart';
 import 'package:flutter_do/ui/start_screen.dart';
 import 'package:flutter_do/util/auth_n.dart';
+import 'dart:async';
 
 class Home extends StatefulWidget {
   @override
@@ -30,10 +31,11 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void checkSignInState() {
+  void checkSignInState() async {
+    var x = await signedIn();
     setState(() {
       // _signedIn = false;
-      _signedIn = signedIn();
+      _signedIn = x;
     });
   }
 }

@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final GoogleSignIn _googleSignIn = new GoogleSignIn();
+final GoogleSignIn _googleSignIn = new GoogleSignIn(
+    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly']);
 
 Future<FirebaseUser> gSignin() async {
   GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
@@ -31,7 +32,8 @@ Future createUser() async {
 }
 
 logout() {
-  _googleSignIn.signOut();
+  _auth.signOut();
+  _googleSignIn.signOut().then((user) => print(user));
 }
 
 signInWithEmail() {
@@ -45,7 +47,13 @@ signInWithEmail() {
   });
 }
 
-bool signedIn() {
-  if (_auth.currentUser() != null) return true;
-  return false;
+Future<bool> signedIn() {
+  // _auth.currentUser().then((user) => print(user.email));
+  return _auth.currentUser().then((user) {
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 }
