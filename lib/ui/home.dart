@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_do/ui/sign_in_screen.dart';
-import 'package:flutter_do/ui/start_screen.dart';
+import 'package:flutter_do/ui/todo_list.dart';
 import 'package:flutter_do/util/auth_n.dart';
 import 'dart:async';
 
@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
       // TODO: Should actually use Navigator to route to StartScreen
       // TODO: That way when logging out, we can rely on Navigator to get
       // TODO: us back to the home screen.
-      return StartScreen();
+      return ToDoList();
     } else {
       debugPrint("Not signed in");
       return SignInScreen();
