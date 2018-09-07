@@ -32,10 +32,10 @@ class _HomeState extends State<Home> {
   }
 
   void checkSignInState() async {
-    var x = await signedIn();
+    bool s = await signedIn();
     setState(() {
       // _signedIn = false;
-      _signedIn = x;
+      _signedIn = s;
     });
   }
 }
