@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_do/ui/sign_in_screen.dart';
 import 'package:flutter_do/ui/todo_list.dart';
 import 'package:flutter_do/util/auth_n.dart';
-import 'dart:async';
 
 class Home extends StatefulWidget {
   @override
@@ -21,9 +20,6 @@ class _HomeState extends State<Home> {
     checkSignInState();
     if (_signedIn) {
       debugPrint("Signed in");
-      // TODO: Should actually use Navigator to route to StartScreen
-      // TODO: That way when logging out, we can rely on Navigator to get
-      // TODO: us back to the home screen.
       return ToDoList();
     } else {
       debugPrint("Not signed in");
