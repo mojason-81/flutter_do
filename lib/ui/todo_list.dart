@@ -5,6 +5,8 @@ import 'package:flutter_do/models/todo_item.dart';
 import 'package:flutter_do/ui/todo_form.dart';
 import 'package:flutter_do/util/auth_n.dart';
 
+// FIXME: Didn't load list on initial screen load
+
 class ToDoList extends StatefulWidget {
   @override
   _ToDoListState createState() => _ToDoListState();
