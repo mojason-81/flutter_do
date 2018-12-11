@@ -2,6 +2,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_do/models/todo_item.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class ToDoForm extends StatefulWidget {
   @override
@@ -11,6 +13,9 @@ class ToDoForm extends StatefulWidget {
 class _ToDoFormState extends State<ToDoForm> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final _dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
+
   DatabaseReference databaseReference;
 
   ToDoItem toDoItem;
@@ -18,7 +23,7 @@ class _ToDoFormState extends State<ToDoForm> {
   @override
   void initState() {
     super.initState();
-    toDoItem = ToDoItem('', '');
+    toDoItem = ToDoItem('', '', '');
     databaseReference = database.reference().child('todo_list');
     // databaseReference.onChildAdded.listen(_onEntryAdded);
     // databaseReference.onChildChanged.listen(_onEntryChanged);
@@ -51,13 +56,23 @@ class _ToDoFormState extends State<ToDoForm> {
                           onSaved: (val) => toDoItem.note = val,
                           validator: (val) => null,
                         )),
+                    ListTile(
+                        leading: Icon(Icons.calendar_today),
+                        title: DateTimePickerFormField(
+                            format: _dateFormat,
+                            decoration: InputDecoration(labelText: 'Date'),
+                            onSaved: (val) => toDoItem.date = val.toString(),
+                            validator: (val) => null,
+                            // onChanged: (dt) => setState(() => toDoItem.date = dt.toString())
+                        )
+                    ),
                     FlatButton(
-                      child: Text('Do it!'),
-                      color: Colors.redAccent,
-                      onPressed: () {
-                        handleSubmit();
-                        Navigator.pop(context);
-                      },
+                        child: Text('Do it!'),
+                        color: Colors.redAccent,
+                        onPressed: () {
+                          handleSubmit();
+                          Navigator.pop(context);
+                        },
                     )
                   ],
                 ),
@@ -73,6 +88,7 @@ class _ToDoFormState extends State<ToDoForm> {
       form.save();
       form.reset();
       // save from data to db
+      // debugPrint(toDoItem.toJson());
       databaseReference.push().set(toDoItem.toJson());
     }
   }

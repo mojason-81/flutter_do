@@ -21,6 +21,9 @@ dependencies:
   firebase_core: ^0.2.5+1
   firebase_database: ^1.0.5
   google_sign_in: ^3.2.4
+  datetime_picker_formfield: ^0.1.7
+  intl: ^0.15.7
+
 
 dev_dependencies:
   flutter_test:

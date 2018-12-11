@@ -73,6 +73,7 @@ class _ToDoListState extends State<ToDoList> {
                       ),
                       title: Text(todoItemList[index].title),
                       subtitle: Text(todoItemList[index].note),
+                      trailing: Text('Due Date: ${todoItemList[index].date}'),
                     ),
                   );
                 },
