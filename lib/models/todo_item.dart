@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:date_format/date_format.dart';
 
 class ToDoItem {
   String key;
@@ -13,6 +14,10 @@ class ToDoItem {
       title = snapshot.value['title'],
       date = snapshot.value['date'],
       note = snapshot.value['note'];
+
+  String formattedDateString() {
+    return formatDate(DateTime.parse(date), [dd, ' ', M, ' \'', yy]).toString();
+  }
 
   toJson() {
     return {

@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     checkSignInState();
     if (_signedIn) {
-      debugPrint("Signed in");
+      // debugPrint("Signed in");
       return ToDoList();
     } else {
       debugPrint("Not signed in");

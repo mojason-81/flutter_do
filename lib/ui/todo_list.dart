@@ -52,7 +52,6 @@ class _ToDoListState extends State<ToDoList> {
                       ),
                     ),
                   onPressed: () {
-                      debugPrint('I worked');
                       Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context) => ToDoForm()
                       ));
@@ -69,11 +68,14 @@ class _ToDoListState extends State<ToDoList> {
                   return Card(
                     child: ListTile(
                       leading: CircleAvatar(
+                        child: Text(
+                          _avatarLetter(index)
+                        ),
                         backgroundColor: Colors.greenAccent,
                       ),
                       title: Text(todoItemList[index].title),
                       subtitle: Text(todoItemList[index].note),
-                      trailing: Text('Due Date: ${todoItemList[index].date}'),
+                      trailing: Text("Due On:\n${todoItemList[index].formattedDateString()}"),
                     ),
                   );
                 },
@@ -81,6 +83,15 @@ class _ToDoListState extends State<ToDoList> {
             )
           ],
         ));
+  }
+
+  String _avatarLetter(int idx) {
+    String t = todoItemList[idx].title;
+    if (t != null) {
+      return t.substring(0,1).toUpperCase();
+    } else {
+      return '';
+    }
   }
 
   _signout() {

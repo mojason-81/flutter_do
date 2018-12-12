@@ -14,7 +14,7 @@ class _ToDoFormState extends State<ToDoForm> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final _dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
+  final _dateFormat = DateFormat.yMMMd('en_US');
 
   DatabaseReference databaseReference;
 
@@ -59,11 +59,11 @@ class _ToDoFormState extends State<ToDoForm> {
                     ListTile(
                         leading: Icon(Icons.calendar_today),
                         title: DateTimePickerFormField(
+                            dateOnly: true,
                             format: _dateFormat,
                             decoration: InputDecoration(labelText: 'Date'),
                             onSaved: (val) => toDoItem.date = val.toString(),
                             validator: (val) => null,
-                            // onChanged: (dt) => setState(() => toDoItem.date = dt.toString())
                         )
                     ),
                     FlatButton(
@@ -88,7 +88,6 @@ class _ToDoFormState extends State<ToDoForm> {
       form.save();
       form.reset();
       // save from data to db
-      // debugPrint(toDoItem.toJson());
       databaseReference.push().set(toDoItem.toJson());
     }
   }
