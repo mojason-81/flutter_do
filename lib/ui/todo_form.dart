@@ -1,8 +1,8 @@
 // TODO: would like to stick the form in it's own class, but it is more difficult than expected
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_do/models/todo_item.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class ToDoForm extends StatefulWidget {
@@ -59,21 +59,38 @@ class _ToDoFormState extends State<ToDoForm> {
                     ListTile(
                         leading: Icon(Icons.calendar_today),
                         title: DateTimePickerFormField(
-                            dateOnly: true,
-                            format: _dateFormat,
-                            decoration: InputDecoration(labelText: 'Date'),
-                            onSaved: (val) => toDoItem.date = val.toString(),
-                            validator: (val) => null,
-                        )
+                          dateOnly: true,
+                          format: _dateFormat,
+                          decoration: InputDecoration(labelText: 'Date'),
+                          onSaved: (val) => toDoItem.date = val.toString(),
+                          validator: (val) => null,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(right: 6.0),
+                          child: FlatButton(
+                            child: Text('Do it!'),
+                            color: Colors.greenAccent,
+                            onPressed: () {
+                              handleSubmit();
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(left: 6.0),
+                            child: FlatButton(
+                              child: Text('Don\'t do it!'),
+                              color: Colors.redAccent,
+                              onPressed: () {
+                                closeForm();
+                                Navigator.pop(context);
+                              },
+                            ))
+                      ],
                     ),
-                    FlatButton(
-                        child: Text('Do it!'),
-                        color: Colors.redAccent,
-                        onPressed: () {
-                          handleSubmit();
-                          Navigator.pop(context);
-                        },
-                    )
                   ],
                 ),
               )),
@@ -90,5 +107,10 @@ class _ToDoFormState extends State<ToDoForm> {
       // save from data to db
       databaseReference.push().set(toDoItem.toJson());
     }
+  }
+
+  closeForm() {
+    final FormState form = formKey.currentState;
+    form.reset();
   }
 }
