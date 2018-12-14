@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_do/models/todo_item.dart';
 import 'package:flutter_do/ui/todo_form.dart';
 import 'package:flutter_do/util/auth_n.dart';
+import 'confirm_delet.dart';
 
 // FIXME: Didn't load list on initial screen load
 
@@ -76,6 +77,14 @@ class _ToDoListState extends State<ToDoList> {
                       title: Text(todoItemList[index].title),
                       subtitle: Text(todoItemList[index].note),
                       trailing: Text("Due On:\n${todoItemList[index].formattedDateString()}"),
+                      onLongPress: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              // FIXME: for some reason, the incorrect items is removed from the list in the UI
+                              return ConfirmDelete(todoItemList[index].key, databaseReference);
+                            }
+                        ));
+                      },
                     ),
                   );
                 },
